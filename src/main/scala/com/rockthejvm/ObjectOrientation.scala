@@ -1,6 +1,6 @@
 package com.rockthejvm
 
-object ObjectOrientation extends App{
+object ObjectOrientation extends App {
   class Animal {
     // define fields
     val age: Int = 0
@@ -28,6 +28,7 @@ object ObjectOrientation extends App{
   // abstract class
   abstract class WalkingAnimal {
     val hasLegs = true // by default public, can restrict by adding protected or private
+
     def walk(): Unit
   }
 
@@ -72,14 +73,72 @@ object ObjectOrientation extends App{
   // singleton object
   object mySingleton {
     val mySpecialValue = 53278
+
     def mySpecialMethod(): Int = 5327
+
     def apply(x: Int): Int = x + 1
-  }// the only instance of the mySingleton type
+  } // the only instance of the mySingleton type
 
   MySingleton.mySpecialMethod()
   MySingleton.apply(65)
   MySingleton(65) // equivalent to MySingleton.apply(65)
 
+  object Animal { // companions - companion object
+    // companions can access each other's private field/methods
+    // singleton Animal and instances of Animal are different things
+    val canLiveIndefinitely = false
+  }
 
+  val animalsCanLiveForever = Animal.canLiveIndefinitely // "static" fields/methods
+
+  /*
+    case classes = lightweight data structures with some boilerplate
+    - sensible equals and hash code
+    - serialization
+    - companion with apply
+    - pattern matching
+  */
+
+  case class Person(name: String, age: Int)
+
+  // may bef constructed without new
+  // Person.apply("Bob", 54)
+  val bob = Person("Bob", 54)
+
+  // exceptions
+  try {
+    // code that can throw
+    val x: String = null
+    x.length
+  } catch {
+    case e: Exception => "Some faulty error message"
+  } finally {
+    // execute some code no matter what
+  }
+
+  // generics
+  abstract class MyList[T] {
+    def head: T
+    def tail: MyLast[T]
+  }
+
+  // using a generic with a concrete type
+  val aList: List[Int] = List(1,2,3) // List.apply(1,2,3)
+  val first = aList.head
+  val rest = aList.tail
+  val aStringList = List("hello", "Scala")
+  val firstString = aStringList.head // string
+
+  // Point #1: in Scala we usually operate with IMMUTABLE values/objects
+  // Any modification to an object must return ANOTHER object
+  /*
+    Benefits:
+    1) works miracles in multithreaded/distributed env
+    2) helps make sense of the code ("reasoning about")
+   */
+  val reversedList = aList.reverse // returns a NEW list
+
+  // Point #2: Scala is closest to the OO ideal
 }
+
 
