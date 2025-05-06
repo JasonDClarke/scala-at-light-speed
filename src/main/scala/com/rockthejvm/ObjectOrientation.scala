@@ -71,7 +71,7 @@ object ObjectOrientation extends App {
    */
 
   // singleton object
-  object mySingleton {
+  object MySingleton {
     val mySpecialValue = 53278
 
     def mySpecialMethod(): Int = 5327
@@ -119,7 +119,7 @@ object ObjectOrientation extends App {
   // generics
   abstract class MyList[T] {
     def head: T
-    def tail: MyLast[T]
+    def tail: MyList[T]
   }
 
   // using a generic with a concrete type
