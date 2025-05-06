@@ -59,5 +59,53 @@ object FunctionalProgramming extends App {
   val allPairs = List(1,2,3).flatMap(number => List('a', 'b', 'c').map(letter => s"$number-$letter"))
   println(allPairs)
 
+  //   for comprehensions
+  val alternativePairs = for {
+    number <- List(1,2,3)
+    letter <- List('a','b','c')
+  } yield s"$number-$letter"
+
+  // equivalent to the map/flatMap chain above
+
+
+  /**
+   * Collections
+   */
+
+  // lists
+  val aList = List(1,2,3,4,5)
+  val firstElement = aList.head
+  val rest = aList.tail
+  val aPrependedList = 0 :: aList // List(0,1,2,3,4,5)
+  val anExtendedList = 0 +: aList :+ 6  // List(0,1,2,3,4,5,6)
+
+  // sequences
+  val aSequence: Seq[Int] = Seq(1,2,3) // Seq.apply(1,2,3)
+  val accessedElement = aSequence(1) // the element at index 1: 2
+
+  // vectors: fast Seq implementation
+  val aVector = Vector(1,2,3,4,5)
+
+  // sets = no duplicates
+  val aSet = Set(1,2,3,4,1,2,3) // Set(1,2,3,4)
+  val setHas5 = aSet.contains(5) // false
+  val anAddedSet = aSet + 5 // Set(1,2,3,4,5)
+  val aRemovedSet = aSet - 3 // Set(1,2,4)
+
+  // ranges
+  val aRange = 1 to 1000
+  val twoByTwo = aRange.map(2 * _).toList // List(2,4,6,8..., 2000)
+
+  // tuples = groups of values under the same value
+  val aTuple = ("Bon Jovi", "Rock", 1982)
+
+  // maps
+  val aPhonebook: Map[String, Int] = Map(
+    ("Daniel", 6437812),
+    "Jane" -> 327285 // equivalent to ("Jane", 327285)
+  )
+
+
+
 
 }
