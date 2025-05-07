@@ -1,6 +1,8 @@
 package com.rockthejvm
 
+import scala.concurrent.Future
 import scala.util.{Failure, Success, Try}
+import scala.concurrent.ExecutionContext.Implicits.global
 
 object Advanced extends App {
   /**
@@ -50,8 +52,35 @@ object Advanced extends App {
 
   /**
    * Evaluate something on another thread
-   * (asynchronous programming
+   * (asynchronous programming)
    */
 
+  val aFuture = Future {
+    println("Loading...")
+    Thread.sleep(1000)
+    println("I have computed a value.")
+    67
+  }
 
+  Thread.sleep(2000)
+
+  // future is a "collection" which contains a value when its evaluated
+  // future is composable with map, flatMap and filter
+  // monads
+
+  /**
+   * Implicits basics
+   */
+  // #1: implicit arguments
+  def aMethodWithImplicitArgs(implicit arg: Int) = arg + 1
+  implicit val myImplicitInt: Int = 46
+  println(aMethodWithImplicitArgs) // aMethodWithImplicitArgs(myImplicitInt)
+
+  // #2: implicit conversions
+  implicit class MyRichInteger(n: Int) {
+    def isEven() = n % 2 == 0
+  }
+
+  println(23.isEven())
+  // use this carefully
 }
